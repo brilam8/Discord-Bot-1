@@ -528,7 +528,24 @@ async def jojo(ctx):
             i = i + 1
             #print("Wrong")
 
-
+@client.command()
+async def amongus(ctx):
+    headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
+    i = 0
+    error = 1
+    while(error != 0):
+        try:
+            reddit_post = get('https://www.reddit.com/r/amogus/random.json', headers = headers).json()
+            await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+            error = 0
+        except:
+            error = 1
+            if(i >= 5):
+                #print("end")
+                await ctx.send(f"Hmmmm. Something went wrong)\n-brought to you by this command has failed **{i}** times gang")
+                return
+            i = i + 1
+            #print("Wrong")
 
 @client.command()
 async def reddit(ctx, *, name):
