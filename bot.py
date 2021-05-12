@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from NHentai.entities.doujin import DoujinThumbnail
 import discord
 import json
 import random
@@ -9,6 +10,7 @@ from itertools import cycle
 from requests import get
 from udpy import UrbanClient
 import os
+from NHentai import NHentai
 
 
 def get_prefix(client, message):
@@ -559,7 +561,7 @@ async def reddit(ctx, *, name):
             reddit_post = get(f"https://www.reddit.com/r/{names}/random.json", headers = headers).json()
             if(reddit_post[0]['data']['children'][0]['data']['over_18'] == 1):
                 if(ctx.channel.is_nsfw() != 1):
-                    await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯\nUnless...")
+                    await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯")
                     return
                 # if(random.random() <= 0.75):
                 #     await ctx.send("HMMMM. Is this NSFW? (╯°□°）╯︵ ┻━┻")
@@ -647,6 +649,34 @@ async def beans(ctx):
     await ctx.send("https://ifunny.co/video/GPNeYfUL8")
 
 @client.command()
+async def hentai(ctx):
+    if(ctx.channel.is_nsfw() != 1):
+        await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯")
+        return
+    try:
+        nhentai = NHentai()
+        Doujin = nhentai.get_random()
+        page = random.randrange(0, Doujin.total_pages)
+        await ctx.send(Doujin.images[page]) 
+    except:
+        await ctx.send("Toooo spicyyyy!!! ¬‿¬")
+
+@client.command()
+async def search(ctx, *, term):
+    if(ctx.channel.is_nsfw() != 1):
+        await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯")
+        return
+    try:
+        nhentai = NHentai()
+        SearchPage = nhentai.search(query=term, sort='popular', page=1)
+        # await ctx.send(SearchPage.doujins[0].id)
+        Doujin = nhentai._get_doujin(id=SearchPage.doujins[0].id)
+        page = random.randrange(0, Doujin.total_pages)
+        await ctx.send(Doujin.images[page])
+    except:
+        await ctx.send("Toooo spicyyyy!!! ¬‿¬")
+
+@client.command()
 async def poll(ctx, *, question):
     yesvote = 0
     novote = 0
@@ -684,6 +714,7 @@ async def help(ctx):
     embed.add_field(name="!ud (*word*)", value="Looks up the word on urban dictionary", inline=True)
     embed.add_field(name="!waifu", value="WAIFU", inline=True)
     embed.add_field(name="!meme", value="Displays a meme", inline=True)
+    embed.add_field(name="!amongus", value="AMOGUS", inline=True)
     embed.add_field(name="!video", value="Quality meme videos", inline=True)
     embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
     embed.add_field(name="!profilepic (*user*)", value="Get user's profile picture", inline=True)
@@ -698,6 +729,8 @@ async def help(ctx):
     embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=True)
     embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=True)
     embed.add_field(name="!8ball *question here*", value="Answers your question", inline=True)
+    embed.add_field(name="!search", value="Searchs on nhentai", inline=True)
+    embed.add_field(name="!hentai", value="random doujins", inline=True)
     embed.add_field(name="!help", value="Displays all available commands", inline=True)
     embed.add_field(name="!modhelp", value="Displays all available commands for moderators", inline=True)
     embed.add_field(name="!devhelp", value="Displays all available commands for developers", inline=True)
