@@ -19,7 +19,7 @@ def get_prefix(client, message):
     
     return prefixes[str(message.guild.id)]
 
-client = commands.Bot(command_prefix = get_prefix)
+client = commands.Bot(command_prefix = get_prefix, case_insensitive=True)
 client.remove_command("help")
 
 token = json.load(open("secrets.json", "r"))["secret"]
