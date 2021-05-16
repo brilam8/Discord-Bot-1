@@ -771,6 +771,7 @@ async def help(ctx):
     embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)
     embed.add_field(name="!reddit [*subreddit name*]", value="Image from that subreddit", inline=True)
     embed.add_field(name="!ud (*word*)", value="Looks up the word on urban dictionary", inline=True)
+    embed.add_field(name="!emoji", value="Sends custom emojis", inline=True)
     embed.add_field(name="!waifu", value="WAIFU", inline=True)
     embed.add_field(name="!meme", value="Displays a meme", inline=True)
     embed.add_field(name="!amongus", value="AMOGUS", inline=True)
