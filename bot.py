@@ -11,6 +11,7 @@ from requests import get
 from udpy import UrbanClient
 import os
 from NHentai import NHentai
+import re
 
 intents = discord.Intents.default()
 intents.members = True
@@ -59,6 +60,8 @@ randMessage = 1
 randReaction = 1
 
 LEVEL_SYSTEM = 1
+
+#colors = [0xFFE4E1, 0x00FF7F, 0xD8BFD8, 0xDC143C, 0xFF4500, 0xDEB887, 0xADFF2F, 0x800000, 0x4682B4, 0x006400, 0x808080, 0xA0522D, 0xF08080, 0xC71585, 0xFFB6C1, 0x00CED1]
 
 @client.event
 async def on_ready():
@@ -113,6 +116,37 @@ async def on_member_remove(member):
     channel = discord.utils.get(member.guild.text_channels, name="announcements")
     await channel.send(f"{member} has left the server")
 
+def Find(string):
+    regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+    url = re.findall(regex,string)      
+    return [x[0] for x in url]
+
+@client.event
+async def on_message_delete(message):
+    if message.guild.id == 548523285172715550:
+        return
+    channel = client.get_channel(843309207825678377)
+    embed = discord.Embed(colour = random.randint(0, 0xffffff))
+    embed.set_footer(text=f"I am watching ;)") 
+    links = Find(message.content)
+    
+    if links:
+        i = 0
+        for y in links:
+            words = message.content.replace(y, "[image]")
+        for x in links:
+            if i == 0:
+                embed.add_field(name=f"{message.author} deleted in ***{message.channel}*** from ***{message.guild.name}***:", value=words, inline=True)
+            else:
+                embed.add_field(name=f"{message.author} deleted in ***{message.channel}*** from ***{message.guild.name}***:", value="** **", inline=True)
+            embed.set_image(url=x)
+            await channel.send(embed=embed)
+            i+=1
+        return
+
+    embed.add_field(name=f"{message.author} deleted in ***{message.channel}*** from ***{message.guild.name}***:", value=message.content, inline=True)
+    await channel.send(embed=embed)
+
 last = 15343854848
 last_web = 4138434834
 
@@ -157,12 +191,6 @@ async def on_message(message):
                     last_web = current_web
                 await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
                 return
-            # elif random_num >= 0.001 and random_num < 0.0015:
-            #     await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
-            # elif random_num >= 0.0015 and random_num < 0.002:
-            #     await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
-            # elif random_num >= 0.002 and random_num < 0.0025:
-            #     await message.channel.send("https://memegenerator.net/img/instances/58910158.jpg")
 
         if randReaction == 1:
             if random.random() < 0.01:
@@ -170,13 +198,6 @@ async def on_message(message):
                 if emoji:
                     await message.add_reaction(emoji)
                     return
-        
-        # if "wait it" in message.content.lower():
-        #     await message.channel.send(f"<@{message.author.id}> Shhhhhhhh \nhttps://i.redd.it/spoaltgn8ud51.jpg")
-
-        if "gay" in message.content.lower():
-            if random.random() < 0.05:
-                await message.channel.send(f"<@{message.author.id}> Leo, is that you?")
 
         if message.content.startswith("hello"):
             if random.random() < 0.25:
@@ -194,12 +215,45 @@ async def on_message(message):
                 prefixes = json.load(f)
             await message.channel.send(prefixes[str(message.guild.id)])
 
-        if "among us" in message.content.lower():
-            if random.random() < 0.01:
-                await message.channel.send(f"<@{message.author.id}> you are getting voted off rn bro.")
-                return
+        if message.content == ":Panties:":
+            await message.channel.purge(limit=1)
+            await message.channel.send("<:pepePanties:699414631923318845>")
+
+        if message.content == ":Laugh:":
+            await message.channel.purge(limit=1)
+            await message.channel.send("<:kekw:717161197119471706>")
+
+        if message.content == ":Cry:":
+            await message.channel.purge(limit=1)
+            await message.channel.send("<:monkaCry:717160567084679199>")
+        
+        if message.content == ":Christ:":
+            await message.channel.purge(limit=1)
+            await message.channel.send("<:monkaChrist:699414631453687888>")
+
+        if message.content == ":Think:":
+            await message.channel.purge(limit=1)
+            await message.channel.send("<:monkaHmm:699414631801684020>")
+
+        if message.content == ":Scared:":
+            await message.channel.purge(limit=1)
+            await message.channel.send("<:spooked:798027263349620787>")
 
     await client.process_commands(message)
+
+@client.command()
+async def emoji(ctx):
+    embed = discord.Embed(colour = discord.Colour.orange())                             
+    embed.set_author(name="Calm Leo", icon_url = "https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
+    # embed.set_thumbnail(url="https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
+    # embed.set_image(url="https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
+    embed.add_field(name=":Panties:", value="<:pepePanties:699414631923318845>", inline=True)
+    embed.add_field(name=":Laugh:", value="<:kekw:717161197119471706>", inline=True)
+    embed.add_field(name=":Cry:", value="<:monkaCry:717160567084679199>", inline=True)
+    embed.add_field(name=":Christ:", value="<:monkaChrist:699414631453687888>", inline=True)
+    embed.add_field(name=":Think:", value="<:monkaHmm:699414631801684020>", inline=True)
+    embed.add_field(name=":Scared:", value="<:spooked:798027263349620787>", inline=True)
+    await ctx.send(embed=embed)
 
 @client.command()
 async def getprefix(ctx):
