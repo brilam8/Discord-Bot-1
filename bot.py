@@ -12,6 +12,8 @@ from udpy import UrbanClient
 import os
 from NHentai import NHentai
 
+intents = discord.Intents.default()
+intents.members = True
 
 def get_prefix(client, message):
     with open("Arrays/prefixes.json", "r") as f:
@@ -19,7 +21,7 @@ def get_prefix(client, message):
     
     return prefixes[str(message.guild.id)]
 
-client = commands.Bot(command_prefix = get_prefix, case_insensitive=True)
+client = commands.Bot(command_prefix = get_prefix, case_insensitive=True, intents=intents)
 client.remove_command("help")
 
 token = json.load(open("secrets.json", "r"))["secret"]
@@ -102,11 +104,14 @@ async def on_member_join(member):
     if DM_New_Member_Upon_Joining == True:
         channel = await member.create_dm()
         await channel.send(Joining_Message)
+    
+    channel = discord.utils.get(member.guild.text_channels, name="announcements")
+    await channel.send(f"{member} has joined the server")
 
 @client.event
 async def on_member_remove(member):
-    # print(f"{member} has left!")
-    ...
+    channel = discord.utils.get(member.guild.text_channels, name="announcements")
+    await channel.send(f"{member} has left the server")
 
 last = 15343854848
 last_web = 4138434834
