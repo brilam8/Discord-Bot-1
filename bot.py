@@ -615,7 +615,20 @@ async def amongus(ctx):
             #print("Wrong")
 
 @client.command()
-async def reddit(ctx, *, name):
+async def reddit(ctx, *, name=None):
+    if(name == None):
+        embed = discord.Embed(colour = discord.Colour.orange())                             
+        embed.set_author(name="Calm Leo", icon_url = "https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
+        embed.add_field(name="!reddit [*subreddit name*]", value="Image from that subreddit", inline=True)
+        embed.add_field(name="!waifu", value="WAIFU", inline=True)
+        embed.add_field(name="!jojo", value="Jojo memes", inline=True)
+        embed.add_field(name="!meme", value="Displays a meme", inline=True)
+        embed.add_field(name="!amongus", value="AMOGUS", inline=True)
+        embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
+        embed.add_field(name="!hentai", value="random doujins", inline=True)
+        await ctx.send(embed=embed)
+        return
+
     headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
     names = name.replace(" ", "")
     i = 0
@@ -765,45 +778,49 @@ async def poll(ctx, *, question):
     # await ctx.send(reaction);
     # embed1.add_field(name= "OPTIONS",value=f"**✅ = {yesvote} votes**\n**❌ = {novote} votes**", inline=False)
     # await message.edit(embed=embed1)
-    
-@client.command()
-async def redditCommands(ctx):
-    
 
 @client.command()
-async def help(ctx):
+async def help(ctx, page=1):
     embed = discord.Embed(colour = discord.Colour.orange())                             
     embed.set_author(name="Calm Leo", icon_url = "https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
     # embed.set_thumbnail(url="https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
     # embed.set_image(url="https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
-    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)
-    embed.add_field(name="!reddit [*subreddit name*]", value="Image from that subreddit", inline=True)
-    embed.add_field(name="!ud (*word*)", value="Looks up the word on urban dictionary", inline=True)
-    embed.add_field(name="!emoji", value="Sends custom emojis", inline=True)
-    embed.add_field(name="!profilepic (*user*)", value="Get user's profile picture", inline=True)
-    embed.add_field(name="!poll [*question*]", value="Start a poll", inline=True)
-    embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
-    embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
-    embed.add_field(name="!tell (*user*) [*message*]", value="@ and sends the designated member the message", inline=True)
-    embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=True)
-    embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=True)
-    embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=True)
-    embed.add_field(name="!8ball *question here*", value="Answers your question", inline=True)
-    embed.add_field(name="!search", value="Searchs on nhentai", inline=True)
-    embed.add_field(name="!waifu", value="WAIFU", inline=True)
-    embed.add_field(name="!meme", value="Displays a meme", inline=True)
-    embed.add_field(name="!amongus", value="AMOGUS", inline=True)
-    embed.add_field(name="!video", value="Quality meme videos", inline=True)
-    embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
-    embed.add_field(name="!unzip", value="DON'T USE IT", inline=True)
-    embed.add_field(name="!perhaps", value="DON'T USE THIS EITHER", inline=True)
-    embed.add_field(name="!beans", value="BEANS", inline=True)
-    embed.add_field(name="!hentai", value="random doujins", inline=True)
-    embed.add_field(name="!help", value="Displays all available commands", inline=True)
-    embed.add_field(name="!modhelp", value="Displays all available commands for moderators", inline=True)
-    embed.add_field(name="!devhelp", value="Displays all available commands for developers", inline=True)
+    if(page == 1):
+        embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)
+        embed.add_field(name="!reddit [*subreddit name*]", value="Image from that subreddit", inline=True)
+        embed.add_field(name="!ud (*word*)", value="Looks up the word on urban dictionary", inline=True)
+        embed.add_field(name="!emoji", value="Sends custom emojis", inline=True)
+        embed.add_field(name="!profilepic (*user*)", value="Get user's profile picture", inline=True)
+        embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
+        embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
+        embed.add_field(name="!tell (*user*) [*message*]", value="@ and sends the designated member the message", inline=True)
+        embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=True)
+        embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=True)
+        embed.add_field(name="!poll [*question*]", value="Start a poll", inline=True)
+        embed.set_footer(text="!help 2 for troll commands")
+        await ctx.send(embed=embed)
+    elif(page == 2):
+        embed.add_field(name="!search", value="Searchs on nhentai", inline=True)
+        embed.add_field(name="!waifu", value="WAIFU", inline=True)
+        embed.add_field(name="!jojo", value="Jojo memes", inline=True)
+        embed.add_field(name="!meme", value="Displays a meme", inline=True)
+        embed.add_field(name="!amongus", value="AMOGUS", inline=True)
+        embed.add_field(name="!video", value="Quality meme videos", inline=True)
+        embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
+        embed.add_field(name="!unzip", value="DON'T USE IT", inline=True)
+        embed.add_field(name="!perhaps", value="DON'T USE THIS EITHER", inline=True)
+        embed.add_field(name="!beans", value="BEANS", inline=True)
+        embed.add_field(name="!hentai", value="random doujins", inline=True)
+        embed.set_footer(text="!help 3 for help commands")
+        await ctx.send(embed=embed)
+    elif(page == 3):
+        embed.add_field(name="!help", value="Displays all available commands", inline=True)
+        embed.add_field(name="!modhelp", value="Displays all available commands for moderators", inline=True)
+        embed.add_field(name="!devhelp", value="Displays all available commands for developers", inline=True)
+        embed.set_footer(text="Last Page")
+        await ctx.send(embed=embed)
 
-    await ctx.send(embed=embed)
+    
 
 @client.command()
 async def modhelp(ctx):
@@ -812,8 +829,8 @@ async def modhelp(ctx):
     embed.add_field(name="!kick *member*", value="Kicks a member(if with permission)", inline=True)
     embed.add_field(name="!ban *member*", value="Bans a member(if with permission)", inline=True)
     embed.add_field(name="!unban *member*", value="Unbans a member(if with permission)", inline=True)
-    embed.add_field(name="*what calm leo prefix*", value="displays the prefix (this is not a command)", inline=True) 
-
+    embed.add_field(name="!ping", value="Bot's ping(most of the times)", inline=True)
+    embed.add_field(name="*what calm leo prefix*", value="displays the prefix (this is not a command)", inline=True)
     await ctx.send(embed=embed)
 
 
@@ -826,7 +843,7 @@ async def devhelp(ctx):
     embed.add_field(name="!randMessage_off", value="prevents the bot to send random messages", inline=True)
     embed.add_field(name="!randReact_on", value="allows the bot to randomly add a reaction to a message", inline=True)
     embed.add_field(name="!randReact_off", value="prevents the bot from randomly adding a reaction to a message", inline=True)
-
+    embed.add_field(name="!8ball *question here*", value="Answers your question", inline=True)
     await ctx.send(embed=embed)
 
 client.run(token)
