@@ -125,7 +125,7 @@ def Find(string):
 async def on_message_delete(message):
     if message.guild.id == 548523285172715550:
         return
-    channel = client.get_channel(843309207825678377)
+    channel = client.get_channel(698353202839420969)
     embed = discord.Embed(colour = random.randint(0, 0xffffff))
     embed.set_footer(text=f"I am watching ;)") 
     links = Find(message.content)
