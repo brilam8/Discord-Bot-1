@@ -108,12 +108,12 @@ async def on_member_join(member):
         channel = await member.create_dm()
         await channel.send(Joining_Message)
     
-    channel = discord.utils.get(member.guild.text_channels, name="announcements")
+    channel = discord.utils.get(member.guild.text_channels, name="updates")
     await channel.send(f"{member} has joined the server")
 
 @client.event
 async def on_member_remove(member):
-    channel = discord.utils.get(member.guild.text_channels, name="announcements")
+    channel = discord.utils.get(member.guild.text_channels, name="updates")
     await channel.send(f"{member} has left the server")
 
 def Find(string):
@@ -125,7 +125,7 @@ def Find(string):
 async def on_message_delete(message):
     if message.guild.id == 548523285172715550:
         return
-    channel = client.get_channel(698353202839420969)
+    channel = client.get_channel(843309207825678377)
     embed = discord.Embed(colour = random.randint(0, 0xffffff))
     embed.set_footer(text=f"I am watching ;)") 
     links = Find(message.content)
