@@ -12,9 +12,13 @@ from udpy import UrbanClient
 import os
 from NHentai import NHentai
 import re
+import time
 
 intents = discord.Intents.default()
 intents.members = True
+slientMember = False
+sliencedMember = 1
+counter = 0
 
 def get_prefix(client, message):
     with open("Arrays/prefixes.json", "r") as f:
@@ -116,6 +120,7 @@ async def on_member_remove(member):
     channel = discord.utils.get(member.guild.text_channels, name="updates")
     await channel.send(f"{member} has left the server")
 
+
 def Find(string):
     regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
     url = re.findall(regex,string)      
@@ -123,7 +128,7 @@ def Find(string):
 
 @client.event
 async def on_message_delete(message):
-    if message.guild.id == 548523285172715550:
+    if message.guild.id != 691848461217169438 or message.guild.id != 756226688442171475:
         return
     channel = client.get_channel(843309207825678377)
     embed = discord.Embed(colour = random.randint(0, 0xffffff))
@@ -162,6 +167,13 @@ async def on_message(message):
 
         global last
         global last_web
+        global slientMember
+        global sliencedMember
+        global counter
+
+        # if message.author.id == 578715287491182595:
+        #     await message.channel.send(f"{slientMember}\n{sliencedMember}")
+
         if ALLOW_CUSTOM_MESSAGE == "True":
             print("true")
             if random.random() < CUSTOM_MESSAGE_CHANCE:
@@ -213,7 +225,17 @@ async def on_message(message):
         if "calm leo" in message.content.lower() and "prefix" in message.content.lower():
             with open("Arrays/prefixes.json", "r") as f:
                 prefixes = json.load(f)
-            await message.channel.send(prefixes[str(message.guild.id)])                        
+            await message.channel.send(prefixes[str(message.guild.id)]) 
+
+        if slientMember and message.author.id == sliencedMember:
+            if counter >= 5:
+                slientMember = False
+                counter = 0
+                await message.channel.send(f"<@{sliencedMember}> You are now spared.")
+                return
+            await message.channel.purge(limit=1)
+            await message.channel.send(f"<@{sliencedMember}> tried to open his filthy mouth.")
+            counter+=1
 
     await client.process_commands(message)
 
@@ -229,7 +251,43 @@ async def emoji(ctx):
     embed.add_field(name="!christ", value="<:monkaChrist:699414631453687888>", inline=True)
     embed.add_field(name="!think", value="<:monkaHmm:699414631801684020>", inline=True)
     embed.add_field(name="!scared", value="<:spooked:798027263349620787>", inline=True)
+    embed.add_field(name="!glasses", value="<:anime_glasses:847307163939897344>", inline=True)
+    embed.add_field(name="!drama", value="<:pepe_drama:847308076369707019>", inline=True)
+    embed.add_field(name="!simp", value="<:simp:847307558367920211>", inline=True)
+    embed.add_field(name="!thinker", value="<:thinker:847333996412928000>", inline=True)
+    embed.add_field(name="!smile", value="<:smile:847336513906016287>", inline=True)
+    embed.add_field(name="!wut", value="<:shaking_eye:847338523337293844>", inline=True)
     await ctx.send(embed=embed)
+
+@client.command()
+async def wut(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:shaking_eye:847338523337293844>")
+
+@client.command()
+async def smile(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:smile:847336513906016287>")
+
+@client.command()
+async def thinker(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:thinker:847333996412928000>")
+
+@client.command()
+async def simp(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:simp:847307558367920211>")
+
+@client.command()
+async def drama(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:pepe_drama:847308076369707019>")
+
+@client.command()
+async def glasses(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:anime_glasses:847307163939897344>")
 
 @client.command()
 async def panties(ctx):
@@ -339,6 +397,37 @@ async def ban(ctx, member : discord.Member, *, reason=None):
 async def ban_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to ban members.")
+
+@client.command()
+@commands.has_permissions(kick_members=True)
+async def silent(ctx, member : discord.Member):
+    if counter != 0:
+        await ctx.send(f"<@{ctx.message.author.id}> You can only persecute one person at a time.")
+        return
+    if member.id == 578715287491182595:
+        await ctx.send(f"<@{ctx.message.author.id}> HOW DARE YOU INSULT MY MASTER!!!\n{member.mention} My lord, what should I do with this big bruh?")
+        return
+    if member.id == 756208954031341688:
+        await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to silence **ME**.")
+        return
+    
+    global slientMember
+    global sliencedMember
+
+    slientMember = True
+    sliencedMember = member.id
+
+    # with open("Arrays/list.json", "r") as f:
+    #     print("1")
+    #     lists = json.load(f)
+    #     print("2.5")
+    # print("2")
+    # lists[member.id] = "0"
+
+    # with open("Arrays/list.json" , "w") as f:
+    #     json.dump(lists, f, indent=4)
+
+    await ctx.send(f"{member.mention} is now slienced.")
 
 @client.command()
 async def video(ctx):
