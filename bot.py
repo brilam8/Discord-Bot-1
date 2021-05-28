@@ -257,7 +257,25 @@ async def emoji(ctx):
     embed.add_field(name="!thinker", value="<:thinker:847333996412928000>", inline=True)
     embed.add_field(name="!smile", value="<:smile:847336513906016287>", inline=True)
     embed.add_field(name="!wut", value="<:shaking_eye:847338523337293844>", inline=True)
+    embed.add_field(name="!shock", value="<:shock:847880395579719716>", inline=True)
+    embed.add_field(name="!woke", value="<:woke:847881227793072148>", inline=True)
+    embed.add_field(name="!interested", value="<:interested:847881182430625872>", inline=True)
     await ctx.send(embed=embed)
+
+@client.command()
+async def interested(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:interested:847881182430625872>")
+
+@client.command()
+async def woke(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:woke:847881227793072148>")
+
+@client.command()
+async def shock(ctx):
+    await ctx.message.channel.purge(limit=1)
+    await ctx.message.channel.send("<:shock:847880395579719716>")
 
 @client.command()
 async def wut(ctx):
