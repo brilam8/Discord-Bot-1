@@ -120,7 +120,6 @@ async def on_member_remove(member):
     channel = discord.utils.get(member.guild.text_channels, name="updates")
     await channel.send(f"{member} has left the server")
 
-
 def Find(string):
     regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
     url = re.findall(regex,string)      
