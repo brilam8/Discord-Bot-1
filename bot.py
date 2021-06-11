@@ -113,8 +113,10 @@ async def on_member_join(member):
         channel = await member.create_dm()
         await channel.send(Joining_Message)
     
-    channel = discord.utils.get(member.guild.text_channels, name="updates")
-    await channel.send(f"{member} has joined the server")
+    MESSAGE = False
+    if MESSAGE == True:
+        channel = discord.utils.get(member.guild.text_channels, name="updates")
+        await channel.send(f"{member} has joined the server")
 
 @client.event
 async def on_member_remove(member):
