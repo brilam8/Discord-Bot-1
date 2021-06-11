@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import asyncio
 from NHentai.entities.doujin import DoujinThumbnail
 import discord
 import json
@@ -222,9 +223,23 @@ async def on_message(message):
                     return
 
         if "calm leo" in message.content.lower() and "prefix" in message.content.lower():
-            with open("Arrays/prefixes.json", "r") as f:
-                prefixes = json.load(f)
-            await message.channel.send(prefixes[str(message.guild.id)]) 
+            try:
+                with open("Arrays/prefixes.json", "r") as f:
+                    prefixes = json.load(f)
+                
+                await message.channel.send(prefixes[str(message.guild.id)])
+            except:
+                with open("Arrays/prefixes.json", "r") as f:
+                    prefixes = json.load(f)
+                
+                prefixes[str(message.guild.id)] = "!"
+
+                with open("Arrays/prefixes.json" , "w") as f:
+                    json.dump(prefixes, f, indent=4)
+                
+                with open("Arrays/prefixes.json", "r") as f:
+                    await message.channel.send(prefixes[str(message.guild.id)])
+ 
 
         if slientMember and message.author.id == sliencedMember:
             if counter >= 5:
@@ -237,6 +252,23 @@ async def on_message(message):
             counter+=1
 
     await client.process_commands(message)
+
+@client.command(pass_context=True)
+async def die(ctx):
+    messages = await ctx.send(f"<@756208954031341688> is leaving the server.")
+    await asyncio.sleep(1)
+    await messages.edit(content=f"<@756208954031341688> is leaving the server..")
+    await asyncio.sleep(1)
+    await messages.edit(content=f"<@756208954031341688> is leaving the server...")
+    await asyncio.sleep(1)
+    await messages.edit(content=f"<@756208954031341688> is leaving the server.")
+    await asyncio.sleep(1)
+    await messages.edit(content=f"<@756208954031341688> is leaving the server..")
+    await asyncio.sleep(1)
+    await messages.edit(content=f"<@756208954031341688> is leaving the server...")
+    await asyncio.sleep(1)
+    await messages.edit(content=f"<@756208954031341688> has left the server!")
+    StopAsyncIteration
 
 @client.command()
 async def emoji(ctx):
@@ -263,77 +295,122 @@ async def emoji(ctx):
 
 @client.command()
 async def interested(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:interested:847881182430625872>")
 
 @client.command()
 async def woke(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:woke:847881227793072148>")
 
 @client.command()
 async def shock(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:shock:847880395579719716>")
 
 @client.command()
 async def wut(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:shaking_eye:847338523337293844>")
 
 @client.command()
 async def smile(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:smile:847336513906016287>")
 
 @client.command()
 async def thinker(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:thinker:847333996412928000>")
 
 @client.command()
 async def simp(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:simp:847307558367920211>")
 
 @client.command()
 async def drama(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:pepe_drama:847308076369707019>")
 
 @client.command()
 async def glasses(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:anime_glasses:847307163939897344>")
 
 @client.command()
 async def panties(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:pepePanties:699414631923318845>")
 
 @client.command()
 async def laugh(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:kekw:717161197119471706>")
 
 @client.command()
 async def cry(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:monkaCry:717160567084679199>")
 
 @client.command()
 async def christ(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:monkaChrist:699414631453687888>")
 
 @client.command()
 async def think(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:monkaHmm:699414631801684020>")
 
 @client.command()
 async def scared(ctx):
-    await ctx.message.channel.purge(limit=1)
+    try:
+        await ctx.message.channel.purge(limit=1)
+    except:
+        pass
     await ctx.message.channel.send("<:spooked:798027263349620787>")
 
 @client.command()
