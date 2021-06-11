@@ -1,4 +1,5 @@
 secrets.json
+Arrays/prefixes.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -135,6 +136,3 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
-# Cython debug symbols
-cython_debug/
-Arrays/prefixes.json
