@@ -14,6 +14,7 @@ import os
 from NHentai import NHentai
 import re
 import time
+from datetime import datetime
 
 intents = discord.Intents.default()
 intents.members = True
@@ -271,6 +272,18 @@ async def die(ctx):
     await asyncio.sleep(1)
     await messages.edit(content=f"<@756208954031341688> has left the server!")
     StopAsyncIteration
+
+@client.command()
+async def howold(ctx, member : discord.Member):
+    now = datetime.utcnow()
+    delta = now - member.created_at
+    print("1")
+    year = int(delta.days / 365)
+    day = delta.days % 365
+    hour = delta.seconds//3600
+    minute = (delta.seconds//60)%60
+    second = (delta.seconds//3600)%60
+    await ctx.send(f"<@{member.id}>'s account is about {year} years {day} days {hour} hours {minute} minutes {second} seconds old!")
 
 @client.command()
 async def emoji(ctx):
