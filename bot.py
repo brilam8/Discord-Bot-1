@@ -271,13 +271,14 @@ async def die(ctx):
     await messages.edit(content=f"<@756208954031341688> is leaving the server...")
     await asyncio.sleep(1)
     await messages.edit(content=f"<@756208954031341688> has left the server!")
+    await asyncio.sleep(2)
+    await messages.edit(content=f"<@756208954031341688> LMAOOOO Got you!!\n(╯°□°）╯︵ ┻━┻\n┬─┬ ノ( ゜-゜ノ)")
     StopAsyncIteration
 
 @client.command()
 async def howold(ctx, member : discord.Member):
     now = datetime.utcnow()
     delta = now - member.created_at
-    print("1")
     year = int(delta.days / 365)
     day = delta.days % 365
     hour = delta.seconds//3600
@@ -989,6 +990,7 @@ async def help(ctx, page=1):
         embed.add_field(name="!ud (*word*)", value="Looks up the word on urban dictionary", inline=True)
         embed.add_field(name="!emoji", value="Sends custom emojis", inline=True)
         embed.add_field(name="!profilepic (*user*)", value="Get user's profile picture", inline=True)
+        embed.add_field(name="!howold (*user*)", value="Get the age of the account", inline=True)
         embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
         embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
         embed.add_field(name="!tell (*user*) [*message*]", value="@ and sends the designated member the message", inline=True)
